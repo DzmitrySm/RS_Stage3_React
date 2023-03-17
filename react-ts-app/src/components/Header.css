@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.nav_wrapper {
+  display: flex;
+  justify-content: space-between;
+  background: #000000;
+}
+
+.nav_list {
+  display: flex;
+}
+
+.nav_list_item {
+  list-style: none;
+  padding: 20px 20px;
+}
+
+.nav_list_item_link {
+  color: #ffffff;
+  cursor: pointer;
+  transition: 0.3s;
+  text-decoration: none;
+}
+
+.current_page_text {
+  color: #ffffff;
+  padding: 20px 20px;
+}
