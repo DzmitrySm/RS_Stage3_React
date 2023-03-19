@@ -10,7 +10,7 @@ class MainPage extends React.Component {
     return (
       <div>
         <Header />
-        <h1>Mainpage hello</h1>
+        <h1 className="page_name">Mainpage</h1>
         <SearchInput />
         <div className="wrapper_cards">
           {storage.map((card) => (

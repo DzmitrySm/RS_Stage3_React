@@ -17,6 +17,7 @@ class SearchInput extends React.Component<object, { SearchValue: string }> {
     return (
       <div className="search_input_wrapper">
         <input
+          data-testid="input_test_search"
           type="search"
           className="input_search"
           defaultValue={this.state.SearchValue}
