@@ -1,0 +1,122 @@
+.wrapper_form {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 40px;
+}
+
+.input_text {
+  width: 50%;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.input_date {
+  width: 50%;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.select_bar {
+  width: 50%;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.size_checkbox {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+.padding {
+  padding-right: 20px;
+}
+
+.switcher_wrapper {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.switcher {
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  height: 34px;
+  border-radius: 5px;
+}
+
+.switcher_input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.switcher_circle {
+  position: absolute;
+  cursor: pointer;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: gray;
+  border-radius: 38px;
+}
+
+.switcher_circle::before {
+  position: absolute;
+  content: "";
+  cursor: pointer;
+  left:4px;
+  bottom: 4px;
+  width: 26px;
+  height: 26px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.8s;
+}
+
+.switcher_input:checked + .switcher_circle{
+  background-color: black;
+}
+
+.switcher_input:checked + .switcher_circle::before {
+  transform: translateX(26px);
+  transition: 0.8s;
+}
+
+input[type=date]:required:invalid::-webkit-datetime-edit {
+  color: transparent;
+}
+input[type=date]:focus::-webkit-datetime-edit {
+  color: black !important;
+}
+
+input[type=date]:active::-webkit-datetime-edit {
+  color: black !important;
+}
+
+.btn_submit {
+  width: 20%;
+  height: 40px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  transition: 0.8s;
+}
+
+.btn_submit:hover {
+  background-color: white;
+  color: black;
+  transition: 0.8s;
+}
+
+.wrapper_input_file {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
