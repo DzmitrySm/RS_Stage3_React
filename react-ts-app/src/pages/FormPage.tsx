@@ -2,6 +2,7 @@ import React, { MouseEvent } from "react";
 import Header from "../components/Header";
 import "../pages/FormPage.css";
 import CardOnSubmit from "../components/CardOnSubmit";
+import { IState } from "../components/types/types";
 
 class FormPage extends React.Component<
   object,
@@ -14,7 +15,6 @@ class FormPage extends React.Component<
     valueCheckBoxOrder: boolean | string | undefined;
     valueCheckBoxPay: boolean | string | undefined;
     valueFileInput: string | undefined;
-    cards: [object] | [];
   }
 > {
   textinput: React.RefObject<HTMLInputElement>;
@@ -25,6 +25,7 @@ class FormPage extends React.Component<
   checkboxinputPay: React.RefObject<HTMLInputElement>;
   fileinput: React.RefObject<HTMLInputElement>;
   form: React.RefObject<HTMLFormElement>;
+  cards: [IState] | [];
   constructor(props = {}) {
     super(props);
     this.state = {
@@ -36,7 +37,6 @@ class FormPage extends React.Component<
       valueCheckBoxOrder: false,
       valueCheckBoxPay: false,
       valueFileInput: "",
-      cards: [],
     };
     this.textinput = React.createRef();
     this.dateinput = React.createRef();
@@ -46,9 +46,12 @@ class FormPage extends React.Component<
     this.checkboxinputPay = React.createRef();
     this.fileinput = React.createRef();
     this.form = React.createRef();
+    this.cards = [];
   }
 
   handleTypeInput = () => this.setState({ typeInput: "date" });
+
+  handleTypeInputBlur = () => this.setState({ typeInput: "text" });
 
   handleSubmit = (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -72,22 +75,9 @@ class FormPage extends React.Component<
           ? URL.createObjectURL(this.fileinput.current.files[0])
           : "",
     });
+    this.cards.push(this.state as never);
+    console.log(this.cards);
     this.form.current?.reset();
-  };
-
-  addNewCard = () => {
-    return (
-      <CardOnSubmit
-        id={`${new Date()}`}
-        title={this.state.valueTextInput}
-        dateDelivery={this.state.valueDateInput}
-        countryDelivery={this.state.valueSelectInput}
-        inStock={this.state.valueCheckBoxStock}
-        onOrder={this.state.valueCheckBoxOrder}
-        kindOfPay={this.state.valueCheckBoxPay}
-        imagePath={this.state.valueFileInput}
-      />
-    );
   };
 
   render(): React.ReactNode {
@@ -112,6 +102,7 @@ class FormPage extends React.Component<
             required
             placeholder="Date of delivery"
             onFocus={this.handleTypeInput}
+            onBlur={this.handleTypeInputBlur}
             ref={this.dateinput}
           />
           <select
@@ -164,26 +155,23 @@ class FormPage extends React.Component<
             <label htmlFor="avatar">Choose a profile picture:</label>
             <input type="file" name="image" id="avatar" ref={this.fileinput} />
           </div>
-          <button
-            type="submit"
-            className="btn_submit"
-            onClick={this.addNewCard}
-          >
+          <button type="submit" className="btn_submit">
             Submit
           </button>
         </form>
         <div className="cards_list">
-          <CardOnSubmit
-            key={`${new Date()}`}
-            id={`${new Date()}`}
-            title={this.state.valueTextInput}
-            dateDelivery={this.state.valueDateInput}
-            countryDelivery={this.state.valueSelectInput}
-            inStock={this.state.valueCheckBoxStock}
-            onOrder={this.state.valueCheckBoxOrder}
-            kindOfPay={this.state.valueCheckBoxPay}
-            imagePath={this.state.valueFileInput}
-          />
+          {this.cards.map((card) => (
+            <CardOnSubmit
+              key={`${card.valueTextInput}`}
+              title={card.valueTextInput}
+              dateDelivery={card.valueDateInput}
+              countryDelivery={card.valueSelectInput}
+              inStock={card.valueCheckBoxStock}
+              onOrder={card.valueCheckBoxOrder}
+              kindOfPay={card.valueCheckBoxPay}
+              imagePath={card.valueFileInput}
+            />
+          ))}
         </div>
       </div>
     );

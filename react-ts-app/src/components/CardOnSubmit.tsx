@@ -9,7 +9,7 @@ class CardOnSubmit extends React.Component<ICardOnSubmit> {
 
   render(): React.ReactNode {
     const CardOnSubmit = (
-      <div key={`${new Date()}`} className="wrapper_card">
+      <div key={`${this.props.title}`} className="wrapper_card">
         <div>{this.props.title}</div>
         <div>{this.props.dateDelivery}</div>
         <div>{this.props.countryDelivery}</div>
