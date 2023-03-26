@@ -14,7 +14,7 @@ class FormPage extends React.Component<
     valueCheckBoxOrder: boolean | string | undefined;
     valueCheckBoxPay: boolean | string | undefined;
     valueFileInput: string | undefined;
-    post: [];
+    cards: [object] | [];
   }
 > {
   textinput: React.RefObject<HTMLInputElement>;
@@ -24,6 +24,7 @@ class FormPage extends React.Component<
   checkboxinputOrder: React.RefObject<HTMLInputElement>;
   checkboxinputPay: React.RefObject<HTMLInputElement>;
   fileinput: React.RefObject<HTMLInputElement>;
+  form: React.RefObject<HTMLFormElement>;
   constructor(props = {}) {
     super(props);
     this.state = {
@@ -35,7 +36,7 @@ class FormPage extends React.Component<
       valueCheckBoxOrder: false,
       valueCheckBoxPay: false,
       valueFileInput: "",
-      post: [],
+      cards: [],
     };
     this.textinput = React.createRef();
     this.dateinput = React.createRef();
@@ -44,6 +45,7 @@ class FormPage extends React.Component<
     this.checkboxinputOrder = React.createRef();
     this.checkboxinputPay = React.createRef();
     this.fileinput = React.createRef();
+    this.form = React.createRef();
   }
 
   handleTypeInput = () => this.setState({ typeInput: "date" });
@@ -70,6 +72,7 @@ class FormPage extends React.Component<
           ? URL.createObjectURL(this.fileinput.current.files[0])
           : "",
     });
+    this.form.current?.reset();
   };
 
   addNewCard = () => {
@@ -92,7 +95,11 @@ class FormPage extends React.Component<
       <div>
         <Header />
         <h1 className="page_name">Form Page</h1>
-        <form className="wrapper_form" onSubmit={this.handleSubmit}>
+        <form
+          className="wrapper_form"
+          onSubmit={this.handleSubmit}
+          ref={this.form}
+        >
           <input
             type="text"
             className="input_text"
@@ -167,6 +174,7 @@ class FormPage extends React.Component<
         </form>
         <div className="cards_list">
           <CardOnSubmit
+            key={`${new Date()}`}
             id={`${new Date()}`}
             title={this.state.valueTextInput}
             dateDelivery={this.state.valueDateInput}
