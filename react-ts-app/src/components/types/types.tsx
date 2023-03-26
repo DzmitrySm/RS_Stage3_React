@@ -7,3 +7,14 @@ export interface ICard {
   category: string;
   image: string;
 }
+
+export interface ICardOnSubmit {
+  id: string;
+  title: string | undefined;
+  dateDelivery: string | undefined;
+  countryDelivery: string | undefined;
+  inStock: boolean | string | undefined;
+  onOrder: boolean | string | undefined;
+  kindOfPay: boolean | string | undefined;
+  imagePath: string | undefined;
+}
