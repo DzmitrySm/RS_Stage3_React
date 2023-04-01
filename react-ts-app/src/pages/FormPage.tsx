@@ -1,5 +1,4 @@
 import React, { MouseEvent } from "react";
-import Header from "../components/Header";
 import "../pages/FormPage.css";
 import CardOnSubmit from "../components/CardOnSubmit";
 import { IState } from "../components/types/types";
@@ -83,7 +82,6 @@ class FormPage extends React.Component<
   render(): React.ReactNode {
     return (
       <div>
-        <Header />
         <h1 className="page_name">Form Page</h1>
         <form
           className="wrapper_form"

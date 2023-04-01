@@ -1,13 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-class NotFoundPage extends React.Component {
-  render(): React.ReactNode {
-    return (
-      <div>
-        <h1 className="page_name">NotFoundPage 404</h1>
-      </div>
-    );
-  }
-}
+const NotFoundPage = function () {
+  return (
+    <div>
+      <h1 className="page_name">NotFoundPage 404</h1>
+      <Link to="/">
+        <button>button</button>
+      </Link>
+    </div>
+  );
+};
 
 export default NotFoundPage;
