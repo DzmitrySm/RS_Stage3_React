@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import "../pages/FormPage.css";
-//import CardOnSubmit from "../components/CardOnSubmit";
-//import { IState } from "../components/types/types";
+import CardOnSubmit from "../components/CardOnSubmit";
 
 const FormPage = function () {
   type Inputs = {
@@ -12,7 +11,7 @@ const FormPage = function () {
     isTheProductInStock: boolean;
     isTheProductOnOrder: boolean;
     isCardOrCash: boolean;
-    FileInput: File | string;
+    FileInput: File | Blob | MediaSource | string;
   };
   const {
     register,
@@ -22,9 +21,13 @@ const FormPage = function () {
     formState: { errors, isSubmitSuccessful },
   } = useForm<Inputs>({
     reValidateMode: "onSubmit",
+    mode: "onSubmit",
   });
 
+  const [arrayCards, setArrayCards] = useState<Inputs[] | []>([]);
+
   const onSubmit = (data: Inputs) => {
+    setArrayCards((arrayCards) => [...arrayCards, data]);
     console.log(data);
   };
 
@@ -139,7 +142,7 @@ const FormPage = function () {
         <div className="switcher_wrapper">
           <span>Cash / Card</span>
           <div>
-            <label className="switcher">
+            <label className="switcher" htmlFor="switcherItem">
               <input
                 {...register("isCardOrCash")}
                 type="checkbox"
@@ -150,6 +153,7 @@ const FormPage = function () {
                 }}
                 checked={isCardOrCash}
                 className="switcher_input"
+                id="switcherItem"
               />
               <span className="switcher_circle"></span>
             </label>
@@ -174,6 +178,30 @@ const FormPage = function () {
           Submit
         </button>
       </form>
+      <div className="cards_list">
+        {arrayCards.map((card, index) => (
+          <CardOnSubmit
+            key={`${index}`}
+            title={card.productName}
+            dateDelivery={card.dateOfDelivery}
+            countryDelivery={card.countryOfDelivery}
+            inStock={
+              card.isTheProductInStock
+                ? "Stock: in Stock"
+                : "Stock: not available"
+            }
+            onOrder={
+              card.isTheProductOnOrder
+                ? "Order: on Order"
+                : "Order: not available"
+            }
+            kindOfPay={card.isCardOrCash ? "Pay: by card" : "Pay: by cash"}
+            imagePath={
+              card.FileInput ? URL.createObjectURL(card.FileInput as Blob) : ""
+            }
+          />
+        ))}
+      </div>
     </div>
   );
 };
