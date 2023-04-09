@@ -15,12 +15,12 @@ describe("Mainpage", () => {
   it("Renders all images at main page", () => {
     render(<WrappedApp />);
     const img = screen.getAllByRole("img");
-    expect(img).toHaveLength(8);
+    expect(img).toHaveLength(20);
   });
 });
 
 describe("Mainpage", () => {
-  it("Renders input search at main page", () => {
+  it("Renders input search at main page", async () => {
     render(<WrappedApp />);
     const input = screen.getByTestId("input_test_search");
     expect(input).toHaveClass("input_search");
