@@ -1,0 +1,58 @@
+.wrapper_card_modal_active {
+  position: fixed;
+  z-index: 100;
+  left: 190px;
+  right:190px;
+  bottom:189px;
+  top:188px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  background: blue;
+}
+
+.wrapper_card_modal {
+  display: none;
+}
+
+
+.overlay_blackout {
+  transform: translateX(100%);
+  position: fixed;
+  left:0;
+  top:0;
+  right: 0;
+  bottom:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background: rgba(41, 41, 41, 0.6);
+  cursor: pointer;
+}
+
+.overlay_blackout_active {
+  transform: translateX(0);
+  z-index: 15;
+  position: fixed;
+  left:0;
+  top:0;
+  right: 0;
+  bottom:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background: rgba(41, 41, 41, 0.6);
+  cursor: pointer;
+}
+
+.card_image_modal {
+  width: 100%;
+  display: block;
+  height: 140px;
+  object-fit: contain;
+}
