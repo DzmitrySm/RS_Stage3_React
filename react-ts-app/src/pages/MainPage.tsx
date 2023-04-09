@@ -8,7 +8,9 @@ const MainPage = function () {
   const [data, setData] = useState<IResponceData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const handleSubmit = (data: IResponceData | null) => {
-    setData(data);
+    setTimeout(() => setData(data), 1000);
+    setTimeout(() => setIsLoading(false), 1000);
+    setIsLoading(true);
   };
 
   useEffect(() => {

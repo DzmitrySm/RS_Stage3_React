@@ -19,26 +19,28 @@ const SearchInput = function ({ onSubmit }: IOnSubmitProps) {
     e.preventDefault();
     setSearchValue(refSearch.current || "");
     localStorage.setItem("inputValue", searchValue);
-    fetch(
-      `https://rickandmortyapi.com/api/character/?name=${localStorage.getItem(
-        "inputValue"
-      )}`
-    )
-      .then((res) => {
-        if (!res.ok) {
-          throw Error("There are no items");
-        }
-        return res.json();
-      })
-      .then((data: IResponceData) => {
-        console.log(data);
-        setData(data);
-        onSubmit(data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-        onSubmit(null);
-      });
+    setTimeout(() => {
+      fetch(
+        `https://rickandmortyapi.com/api/character/?name=${localStorage.getItem(
+          "inputValue"
+        )}`
+      )
+        .then((res) => {
+          if (!res.ok) {
+            throw Error("There are no items");
+          }
+          return res.json();
+        })
+        .then((data: IResponceData) => {
+          console.log(data);
+          setData(data);
+          onSubmit(data);
+        })
+        .catch((err) => {
+          console.log(err.message);
+          onSubmit(null);
+        });
+    }, 1000);
   };
 
   return (
