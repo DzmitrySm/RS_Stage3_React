@@ -65,3 +65,7 @@ export interface IResponceData {
     }
   ];
 }
+
+export interface IOnSubmitProps {
+  onSubmit: (data: IResponceData | null) => void;
+}

@@ -1,10 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./SearchInput.css";
+import { IResponceData, IOnSubmitProps } from "./types/types";
 
-const SearchInput = function () {
+const SearchInput = function ({ onSubmit }: IOnSubmitProps) {
   const [searchValue, setSearchValue] = useState(
     localStorage.getItem("inputValue") || ""
   );
+
+  const [, setData] = useState<IResponceData | null>(null);
 
   const refSearch = useRef<string>();
 
@@ -12,22 +15,47 @@ const SearchInput = function () {
     refSearch.current = searchValue;
   }, [searchValue]);
 
-  useEffect(() => {
-    return () => {
-      localStorage.setItem("inputValue", refSearch.current || "");
-    };
-  }, []);
+  const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    setSearchValue(refSearch.current || "");
+    localStorage.setItem("inputValue", searchValue);
+    fetch(
+      `https://rickandmortyapi.com/api/character/?name=${localStorage.getItem(
+        "inputValue"
+      )}`
+    )
+      .then((res) => {
+        if (!res.ok) {
+          throw Error("There are no items");
+        }
+        return res.json();
+      })
+      .then((data: IResponceData) => {
+        console.log(data);
+        setData(data);
+        onSubmit(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        onSubmit(null);
+      });
+  };
 
   return (
-    <div className="search_input_wrapper">
+    <form className="search_input_wrapper" onSubmit={handleSubmit}>
       <input
         data-testid="input_test_search"
         type="search"
         className="input_search"
         defaultValue={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setSearchValue(e.target.value)
+        }
       ></input>
-    </div>
+      <button type="submit" className="button_submit">
+        Enter
+      </button>
+    </form>
   );
 };
 
